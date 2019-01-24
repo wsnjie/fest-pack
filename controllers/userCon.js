@@ -1,9 +1,10 @@
+const User = require("../models/User")
+
 const userCon = {
     index: (req, res) => {
-        res.send("Hey Hey!")
-        // Creature.find({}).then(creatures => {
-        //     res.send(creatures)
-        // })
+        User.find({}).then(users => {
+            res.send(users)
+        })
     }
     // show: (req, res) => {
     //     Creature.findById(req.params.id).then(creature => {
