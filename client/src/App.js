@@ -23,10 +23,17 @@ class App extends Component {
     })
   }
 
+  addUser = (newUser) => {
+    axios.post("/api/users/", newUser, { new: true }).then(() => {
+      this.getUsers()
+    })
+  }
+
   render() {
     const homeComponent = () =>
       <Home
         users={this.state.users}
+        addUser={this.addUser}
       />
 
     const userShowComponent = (props) =>

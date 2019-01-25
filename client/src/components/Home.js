@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
+import AddUser from './AddUser';
 
 class Home extends Component {
     render() {
@@ -12,6 +13,7 @@ class Home extends Component {
         })
         return (
             <div>
+                <AddUser addUser={this.props.addUser}></AddUser>
                 <h1>{userList}</h1>
             </div>
         );

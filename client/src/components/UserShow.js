@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom"
+import AddList from './AddList';
 
 class UserShow extends Component {
     state = {
@@ -19,6 +20,17 @@ class UserShow extends Component {
             this.setState({ user: res.data })
         })
     }
+
+    addList = (newList) => {
+        axios.post("/api/lists/", newList, { new: true }).then((res) => {
+            let update = { ...this.state.user }
+            update.lists.push(res.data)
+            this.setState({ user: update })
+            axios.put(`/api/users/${this.state.user._id}`, update, { new: true })
+        })
+    }
+
+
     render() {
         let lists = this.state.user.lists.map((list, i) => {
             return (<div key={i}>
@@ -28,6 +40,7 @@ class UserShow extends Component {
         return (
             <div>
                 <h1>{this.state.user.name}</h1>
+                <AddList addList={this.addList} />
                 {lists}
             </div>
         );
