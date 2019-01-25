@@ -16,11 +16,11 @@ router.post("/lists", listCon.create)
 router.put("/lists/:id", listCon.update)
 router.delete("/lists/:id", listCon.delete)
 
-// router.get("/users", itemCon.index)
-// router.get("/users/:id", itemCon.show)
-// router.post("/users", itemCon.create)
-// router.put("/users/:id", itemCon.update)
-// router.delete("/users/:id", itemCon.delete)
+router.get("/items", itemCon.index)
+router.get("/items/:id", itemCon.show)
+router.post("/items", itemCon.create)
+router.put("/items/:id", itemCon.update)
+router.delete("/items/:id", itemCon.delete)
 
 
 

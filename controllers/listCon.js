@@ -7,7 +7,7 @@ const listCon = {
         })
     },
     show: (req, res) => {
-        List.findById(req.params.id).then(list => {
+        List.findById(req.params.id).populate('items').then(list => {
             res.send(list)
         })
     },

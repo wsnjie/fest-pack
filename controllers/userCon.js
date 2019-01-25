@@ -12,7 +12,12 @@ const userCon = {
         })
     },
     show: (req, res) => {
-        User.findById(req.params.id).then(user => {
+        User.findById(req.params.id).populate({
+            path: "lists",
+            populate: [
+                { path: "items" }
+            ]
+        }).then(user => {
             res.send(user)
         })
     },
