@@ -29,6 +29,10 @@ class App extends Component {
     })
   }
 
+  setUser = (userSet) => {
+    this.setState({ user: userSet })
+  }
+
   render() {
     const homeComponent = () =>
       <Home
@@ -39,12 +43,14 @@ class App extends Component {
     const userShowComponent = (props) =>
       <UserShow
         {...props}
+        setUser={this.setUser}
 
       />
 
     const listShowComponent = (props) =>
       <ListShow
         {...props}
+        userId={this.state.user._id}
 
       />
     return (

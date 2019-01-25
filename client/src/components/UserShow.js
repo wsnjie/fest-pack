@@ -18,6 +18,7 @@ class UserShow extends Component {
     getUser = () => {
         axios.get(`/api/users/${this.props.match.params.id}`).then((res) => {
             this.setState({ user: res.data })
+            this.props.setUser(res.data)
         })
     }
 
@@ -39,7 +40,7 @@ class UserShow extends Component {
         })
         return (
             <div>
-                <h1>{this.state.user.name}</h1>
+                <h1>{this.state.user.name}</h1><Link to="/"><button>Back</button></Link>
                 <AddList addList={this.addList} />
                 {lists}
             </div>
