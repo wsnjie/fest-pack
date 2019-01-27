@@ -26,7 +26,7 @@ class Item extends Component {
         let item = { ...this.state.item }
         item[e.target.name] = e.target.value
         this.setState({ item: item })
-        console.log(this.state.item)
+
     }
 
     updateName = () => {
@@ -47,8 +47,13 @@ class Item extends Component {
         this.props.deleteItem(this.state.item._id).then(() => {
             return this.setState({ item: this.props.item })
         })
+    }
 
-
+    addToShopping = () => {
+        let item = this.state.item
+        item.buy = true
+        this.setState({ item: item })
+        this.props.editItem(this.state.item._id, this.state.item)
     }
     render() {
         return (
@@ -61,6 +66,7 @@ class Item extends Component {
                 {this.state.editName
                         ? <input onBlur={this.updateName} name="name" onChange={this.handleChange} defaultValue={this.props.item.name} autoFocus={true} />
                         : <span onClick={this.toggleEditName}>{this.props.item.name}</span>}
+                    <button onClick={this.addToShopping}>$</button>
                 </span>
 
             </div>

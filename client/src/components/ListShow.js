@@ -23,10 +23,10 @@ class ListShow extends Component {
 
     getList = () => {
         axios.get(`/api/lists/${this.props.match.params.id}`).then((res) => {
-            console.log("get list")
-            console.log(res.data)
+
+
             this.setState({ list: res.data })
-            console.log(this.state.list.items)
+
         })
     }
 
@@ -68,9 +68,13 @@ class ListShow extends Component {
                 editItem={this.editItem}
                 getList={this.getList} />
         } else if (view === "shopping") {
-            currentView = <ShoppingView />
+            currentView = <ShoppingView
+                list={this.state.list}
+            />
         } else if (view === "packing") {
-            currentView = <PackingView />
+            currentView = <PackingView
+                list={this.state.list}
+            />
         }
 
         return (
