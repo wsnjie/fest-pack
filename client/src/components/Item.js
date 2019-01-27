@@ -55,8 +55,8 @@ class Item extends Component {
             <div>
                 <span><button onClick={() => this.props.deleteItem(this.state.item._id)}>X</button>
                     {this.state.editQty
-                        ? <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.state.item.qty} autoFocus={true} />
-                        : <span onClick={this.toggleEditQty}>{this.state.item.qty}</span>
+                        ? <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.props.item.qty} autoFocus={true} />
+                        : <span onClick={this.toggleEditQty}>{this.props.item.qty}</span>
                     }:
                 {this.state.editName
                         ? <input onBlur={this.updateName} name="name" onChange={this.handleChange} defaultValue={this.props.item.name} autoFocus={true} />

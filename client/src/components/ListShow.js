@@ -3,13 +3,17 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import AddItem from './AddItem';
 import Item from './Item';
+import PlanningView from './PlanningView';
+import ShoppingView from './ShoppingView';
+import PackingView from './PackingView';
 
 
 class ListShow extends Component {
     state = {
         list: {
             items: []
-        }
+        },
+        view: "planning"
     }
 
     componentDidMount() {
@@ -49,24 +53,36 @@ class ListShow extends Component {
         })
     }
 
+    switchView = (e) => {
+        this.setState({ view: e.target.name })
+    }
+
 
     render() {
-        let items = this.state.list.items.map((item, i) => {
-            return <Item
-                key={i}
-                item={item}
-                index={i}
+        let view = this.state.view
+        let currentView = ""
+        if (view === "planning") {
+            currentView = <PlanningView
+                list={this.state.list}
                 deleteItem={this.deleteItem}
                 editItem={this.editItem}
-                getList={this.getList}
-            />
-        })
+                getList={this.getList} />
+        } else if (view === "shopping") {
+            currentView = <ShoppingView />
+        } else if (view === "packing") {
+            currentView = <PackingView />
+        }
+
         return (
             <div>
+
+                <button name="planning" onClick={this.switchView}>Planning</button>
+                <button name="shopping" onClick={this.switchView}>Shopping</button>
+                <button name="packing" onClick={this.switchView}>Packing</button>
                 <h1>{this.state.list.name}</h1>
                 <Link to={`/user/${this.props.userId}`}><button>All Lists</button></Link>
                 <AddItem addItem={this.addItem}></AddItem>
-                {items}
+                {currentView}
             </div >
         );
     }
