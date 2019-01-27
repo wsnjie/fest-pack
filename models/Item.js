@@ -5,9 +5,9 @@ const Item = new Schema({
     name: String,
     qty: Number,
     category: String,
-    buy: Boolean,
-    bought: Boolean,
-    complete: Boolean
+    buy: { type: Boolean, default: false },
+    bought: { type: Boolean, default: false },
+    complete: { type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Item', Item)

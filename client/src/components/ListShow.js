@@ -19,7 +19,10 @@ class ListShow extends Component {
 
     getList = () => {
         axios.get(`/api/lists/${this.props.match.params.id}`).then((res) => {
+            console.log("get list")
+            console.log(res.data)
             this.setState({ list: res.data })
+            console.log(this.state.list.items)
         })
     }
 
@@ -33,12 +36,16 @@ class ListShow extends Component {
     }
 
     editItem = (itemOID, update) => {
-        return axios.put(`/api/items/${itemOID}`, update, { new: true });
+        return axios.put(`/api/items/${itemOID}`, update, { new: true }).then(() => {
+            return this.getList()
+        })
     }
 
     deleteItem = (itemOID, index) => {
         axios.delete(`/api/items/${itemOID}`).then((res) => {
-            this.getList()
+            return axios.get(`/api/lists/${this.state.list._id}`).then((res) => {
+                return this.setState({ list: res.data })
+            })
         })
     }
 
