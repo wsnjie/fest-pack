@@ -12,8 +12,10 @@ class ShoppingView extends Component {
                     deleteItem={this.props.deleteItem}
                     editItem={this.props.editItem}
                     getList={this.props.getList}
+                    view={this.props.view}
                 />
             }
+            return null
 
         })
 

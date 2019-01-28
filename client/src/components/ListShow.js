@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import axios from "axios"
 import AddItem from './AddItem';
-import Item from './Item';
 import PlanningView from './PlanningView';
 import ShoppingView from './ShoppingView';
 import PackingView from './PackingView';
@@ -66,14 +65,17 @@ class ListShow extends Component {
                 list={this.state.list}
                 deleteItem={this.deleteItem}
                 editItem={this.editItem}
-                getList={this.getList} />
+                getList={this.getList}
+                view={this.state.view} />
         } else if (view === "shopping") {
             currentView = <ShoppingView
                 list={this.state.list}
+                view={this.state.view}
             />
         } else if (view === "packing") {
             currentView = <PackingView
                 list={this.state.list}
+                view={this.state.view}
             />
         }
 

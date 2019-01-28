@@ -4,11 +4,15 @@ class Item extends Component {
     state = {
         item: {},
         editQty: false,
-        editName: false
+        editName: false,
+        view: "",
+        nameField: <span>{this.props.item.name}</span>,
+        shopButton: null
     }
 
     componentDidMount() {
         this.setState({ item: this.props.item })
+        this.viewCheck()
     }
 
 
@@ -55,6 +59,22 @@ class Item extends Component {
         this.setState({ item: item })
         this.props.editItem(this.state.item._id, this.state.item)
     }
+
+    viewCheck = () => {
+        if (this.props.view === "planning") {
+            const shoppingButton = <button onClick={this.addToShopping}>$</button>
+            this.setState({ shopButton: shoppingButton })
+            const nameView = "Blahhh"
+            console.log(nameView)
+            this.setState({ nameField: nameView })
+        } else if (this.props.view === "shopping") {
+            this.setState({ shopButton: null })
+            this.setState({ nameField: <span>{this.props.item.name}</span> })
+        } else if (this.props.view === "packing") {
+            this.setState({ shopButton: null })
+            this.setState({ nameField: <span>{this.props.item.name}</span> })
+        }
+    }
     render() {
         return (
             <div>
@@ -63,12 +83,10 @@ class Item extends Component {
                         ? <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.props.item.qty} autoFocus={true} />
                         : <span onClick={this.toggleEditQty}>{this.props.item.qty}</span>
                     }:
-                {this.state.editName
-                        ? <input onBlur={this.updateName} name="name" onChange={this.handleChange} defaultValue={this.props.item.name} autoFocus={true} />
-                        : <span onClick={this.toggleEditName}>{this.props.item.name}</span>}
-                    <button onClick={this.addToShopping}>$</button>
-                </span>
+                {this.state.nameField}
 
+                </span>
+                {this.state.shopButton}
             </div>
         );
     }
