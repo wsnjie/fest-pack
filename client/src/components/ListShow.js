@@ -46,9 +46,7 @@ class ListShow extends Component {
 
     deleteItem = (itemOID, index) => {
         axios.delete(`/api/items/${itemOID}`).then((res) => {
-            return axios.get(`/api/lists/${this.state.list._id}`).then((res) => {
-                return this.setState({ list: res.data })
-            })
+            this.getList()
         })
     }
 
