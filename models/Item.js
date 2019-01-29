@@ -7,7 +7,7 @@ const Item = new Schema({
     category: String,
     buy: { type: Boolean, default: false },
     bought: { type: Boolean, default: false },
-    complete: { type: Boolean, default: false }
+    packed: { type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Item', Item)

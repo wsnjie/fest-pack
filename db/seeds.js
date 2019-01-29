@@ -10,7 +10,7 @@ const tent = new Item({
     catergory: "Shelter",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const lamp = new Item({
@@ -19,7 +19,7 @@ const lamp = new Item({
     catergory: "Shelter",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const cooler = new Item({
@@ -28,7 +28,7 @@ const cooler = new Item({
     catergory: "Food",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const pillow = new Item({
@@ -37,7 +37,7 @@ const pillow = new Item({
     catergory: "Comfort",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const mattress = new Item({
@@ -46,7 +46,7 @@ const mattress = new Item({
     catergory: "Comfort",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const stove = new Item({
@@ -55,7 +55,7 @@ const stove = new Item({
     catergory: "Food",
     buy: false,
     bought: false,
-    complete: false
+    packed: false
 })
 
 const list1 = new List({

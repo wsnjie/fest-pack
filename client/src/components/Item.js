@@ -7,6 +7,9 @@ color: black;
 const BoughtButton = styled.button`
 color: green;
 `
+const PackedItem = styled.span`
+text-decoration-line: line-through;
+`
 
 class Item extends Component {
     state = {
@@ -18,7 +21,8 @@ class Item extends Component {
         nameField: <span>{this.props.item.name}</span>,
         shopButton: null,
         boughtButton: null,
-        bought: false
+        bought: false,
+        packed: false
     }
 
     componentDidMount() {
@@ -33,6 +37,7 @@ class Item extends Component {
     async setView() {
         await this.setState({ item: this.props.item })
         this.setState({ bought: this.props.item.bought })
+        this.setState({ packed: this.props.item.packed })
         this.viewCheck()
     }
 
@@ -101,6 +106,26 @@ class Item extends Component {
         }
     }
 
+    packedCheck = () => {
+        if (this.state.packed === true) {
+            const packedItem = <PackedItem onClick={this.togglePacked} >{this.state.item.name}</PackedItem>
+            this.setState({ nameField: packedItem })
+        } else {
+            const item = <span onClick={this.togglePacked}>{this.state.item.name}</span>
+            this.setState({ nameField: item })
+        }
+    }
+
+    togglePacked = async () => {
+        let item = this.state.item
+        let packed = !item.packed
+        item.packed = packed
+
+        this.setState({ packed: packed })
+        await this.setState({ item: item })
+        this.packedCheck()
+        this.props.editItem(this.state.item._id, this.state.item)
+    }
     viewCheck = () => {
         if (this.props.view === "planning") {
             const shoppingButton = <button onClick={this.addToShopping}>$</button>
@@ -109,7 +134,7 @@ class Item extends Component {
             let qtyView = () => {
                 if (this.state.editQty === true) {
 
-                    return <input onBlur={this.updateQty} name="qty" onChange={() => this.handleChange()} defaultValue={this.state.item.qty} autoFocus={true} />
+                    return <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.state.item.qty} autoFocus={true} />
                 } else {
                     return <span onClick={this.toggleEditQty}>{this.state.item.qty}</span>
                 }
@@ -134,7 +159,7 @@ class Item extends Component {
             this.setState({ boughtButton: null })
             this.setState({ shopButton: null })
             this.setState({ qtyField: <span>{this.state.item.qty}</span> })
-            this.setState({ nameField: <span>{this.props.item.name}</span> })
+            this.packedCheck()
         }
     }
     render() {
