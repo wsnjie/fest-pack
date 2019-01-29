@@ -16,15 +16,14 @@ class ListShow extends Component {
     }
 
     componentDidMount() {
-        this.getList()
-
+        this.getList(this.props.match.params.id)
     }
 
-    getList = () => {
-        axios.get(`/api/lists/${this.props.match.params.id}`).then((res) => {
-
-
+    getList = (listId) => {
+        axios.get(`/api/lists/${listId}`).then((res) => {
             this.setState({ list: res.data })
+            this.props.setList(res.data)
+            console.log(this.state.list.items)
 
         })
     }
@@ -34,19 +33,22 @@ class ListShow extends Component {
             let update = { ...this.state.list }
             update.items.push(res.data)
             this.setState({ list: update })
-            axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
+            return axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
+        }).then(() => {
+            this.getList(this.state.list._id)
         })
     }
 
     editItem = (itemOID, update) => {
         return axios.put(`/api/items/${itemOID}`, update, { new: true }).then(() => {
-            return this.getList()
+            console.log("Updated database")
+            this.getList(this.props.match.params.id)
         })
     }
 
-    deleteItem = (itemOID, index) => {
+    deleteItem = (itemOID) => {
         axios.delete(`/api/items/${itemOID}`).then((res) => {
-            this.getList()
+            this.getList(this.state.list._id)
         })
     }
 
@@ -67,11 +69,15 @@ class ListShow extends Component {
                 view={this.state.view} />
         } else if (view === "shopping") {
             currentView = <ShoppingView
+                editItem={this.editItem}
+                getList={this.getList}
                 list={this.state.list}
                 view={this.state.view}
             />
         } else if (view === "packing") {
             currentView = <PackingView
+                editItem={this.editItem}
+                getList={this.getList}
                 list={this.state.list}
                 view={this.state.view}
             />

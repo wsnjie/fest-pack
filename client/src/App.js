@@ -9,7 +9,9 @@ import axios from "axios"
 class App extends Component {
   state = {
     users: [],
-    user: {}
+    user: {},
+    list: {},
+    item: {}
 
   }
 
@@ -33,6 +35,10 @@ class App extends Component {
     this.setState({ user: userSet })
   }
 
+  setList = (listSet) => {
+    this.setState({ list: listSet })
+  }
+
   render() {
     const homeComponent = () =>
       <Home
@@ -51,6 +57,8 @@ class App extends Component {
       <ListShow
         {...props}
         userId={this.state.user._id}
+        setList={this.setList}
+        list={this.state.list}
 
       />
     return (

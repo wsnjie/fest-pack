@@ -16,7 +16,8 @@ class Item extends Component {
     }
 
     async setView() {
-        await this.setState({ item: this.props.item })
+        await this.props.getList()
+        this.setState({ item: this.props.item })
         this.viewCheck()
     }
 
@@ -24,13 +25,13 @@ class Item extends Component {
 
         let toggle = !this.state.editName
         await this.setState({ editName: toggle })
-        this.viewCheck()
+        this.setView()
     }
 
     toggleEditQty = async () => {
         let toggle = !this.state.editQty
         await this.setState({ editQty: toggle })
-        this.viewCheck()
+        this.setView()
     }
     handleChange = (e) => {
         let item = { ...this.state.item }
@@ -40,21 +41,23 @@ class Item extends Component {
     }
 
     updateName = async () => {
-        this.props.editItem(this.state.item._id, this.state.item)
-        await this.props.getList()
+        this.props.editItem(this.props.item._id, this.state.item)
+        console.log("updating" + this.state.item.name)
+        await this.setView()
         this.toggleEditName()
     }
 
-    updateQty = () => {
-        this.props.editItem(this.state.item._id, this.state.item).then(() => {
+    updateQty = async () => {
+        this.props.editItem(this.props.item._id, this.state.item)
+        await this.props.getList()
+        this.toggleEditQty()
 
-            this.toggleEditQty()
-        })
     }
 
     deleteItem = async () => {
-        await this.props.deleteItem(this.state.item._id)
-        return this.props.getList()
+        await this.props.deleteItem(this.props.item._id)
+
+        this.setView()
 
     }
 
@@ -71,10 +74,9 @@ class Item extends Component {
             this.setState({ shopButton: shoppingButton })
             let nameView = () => {
                 if (this.state.editName === true) {
-                    console.log("edit")
-                    return <input onBlur={this.updateName} name="name" onChange={this.handleChange} defaultValue={this.state.item.name} autoFocus={true} />
+
+                    return <input onBlur={() => this.updateName()} name="name" onChange={(e) => this.handleChange(e)} defaultValue={this.state.item.name} autoFocus={true} />
                 } else {
-                    console.log("display")
                     return <span onClick={this.toggleEditName}>{this.state.item.name}</span>
                 }
             }
@@ -92,7 +94,7 @@ class Item extends Component {
             <div>
                 <span><button onClick={() => this.props.deleteItem(this.props.item._id)}>X</button>
                     {this.state.editQty
-                        ? <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.props.item.qty} autoFocus={true} />
+                        ? <input onBlur={this.updateQty} name="qty" onChange={() => this.handleChange()} defaultValue={this.props.item.qty} autoFocus={true} />
                         : <span onClick={this.toggleEditQty}>{this.props.item.qty}</span>
                     }:
                 {this.state.nameField}
