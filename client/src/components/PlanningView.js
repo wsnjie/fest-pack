@@ -12,6 +12,7 @@ class PlanningView extends Component {
                 editItem={this.props.editItem}
                 getList={this.props.getList}
                 view={this.props.view}
+                listId={this.props.list._id}
             />
         })
         return (

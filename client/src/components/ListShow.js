@@ -20,36 +20,38 @@ class ListShow extends Component {
     }
 
     getList = (listId) => {
+        let listSet = {}
         axios.get(`/api/lists/${listId}`).then((res) => {
-            this.setState({ list: res.data })
-            this.props.setList(res.data)
-            console.log(this.state.list.items)
+            listSet = res.data
+            console.log(res.data.items)
+            return this.props.setList(res.data)
 
+        }).then(() => {
+            this.setState({ list: listSet })
         })
     }
 
     addItem = (newItem) => {
+        let update = { ...this.state.list }
         axios.post("/api/items/", newItem, { new: true }).then((res) => {
-            let update = { ...this.state.list }
+            console.log(update.items)
             update.items.push(res.data)
             this.setState({ list: update })
-            return axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
-        }).then(() => {
-            this.getList(this.state.list._id)
+            // axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
+
         })
     }
 
     editItem = (itemOID, update) => {
-        return axios.put(`/api/items/${itemOID}`, update, { new: true }).then(() => {
-            console.log("Updated database")
-            this.getList(this.props.match.params.id)
-        })
+        return axios.put(`/api/items/${itemOID}`, update, { new: true })
     }
 
     deleteItem = (itemOID) => {
-        axios.delete(`/api/items/${itemOID}`).then((res) => {
+        return axios.delete(`/api/items/${itemOID}`).then(() => {
+            console.log(this.state.list._id)
             this.getList(this.state.list._id)
         })
+
     }
 
     switchView = (e) => {
@@ -62,7 +64,7 @@ class ListShow extends Component {
         let currentView = ""
         if (view === "planning") {
             currentView = <PlanningView
-                list={this.state.list}
+                list={this.props.list}
                 deleteItem={this.deleteItem}
                 editItem={this.editItem}
                 getList={this.getList}
@@ -71,14 +73,14 @@ class ListShow extends Component {
             currentView = <ShoppingView
                 editItem={this.editItem}
                 getList={this.getList}
-                list={this.state.list}
+                list={this.props.list}
                 view={this.state.view}
             />
         } else if (view === "packing") {
             currentView = <PackingView
                 editItem={this.editItem}
                 getList={this.getList}
-                list={this.state.list}
+                list={this.props.list}
                 view={this.state.view}
             />
         }

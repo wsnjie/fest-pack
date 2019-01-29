@@ -10,8 +10,9 @@ class App extends Component {
   state = {
     users: [],
     user: {},
-    list: {},
-    item: {}
+    list: {
+      items: []
+    },
 
   }
 

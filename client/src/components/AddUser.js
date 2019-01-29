@@ -13,7 +13,7 @@ class AddForm extends Component {
     render() {
         return (
             <div>
-                <input disabled placeholder="Name" onChange={this.nameChange}></input>
+                <input placeholder="Name" onChange={this.nameChange}></input>
                 <button onClick={() => this.props.addUser(this.state)}>Submit</button>
             </div>
         );
