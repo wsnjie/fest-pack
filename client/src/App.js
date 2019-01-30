@@ -4,6 +4,7 @@ import Home from './components/Home';
 import UserShow from './components/UserShow';
 import ListShow from './components/ListShow';
 import axios from "axios"
+import { Hero, Container, Heading } from "react-bulma-components/full"
 
 
 class App extends Component {
@@ -57,7 +58,6 @@ class App extends Component {
     const listShowComponent = (props) =>
       <ListShow
         {...props}
-        userId={this.state.user._id}
         setList={this.setList}
         list={this.state.list}
 
@@ -65,11 +65,17 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <h1>Fest Pack</h1>
+          <Hero color="info">
+            <Hero.Body>
+              <Container>
+                <Heading>Fest Pack</Heading>
+              </Container>
+            </Hero.Body>
+          </Hero>
           <Switch>
             <Route exact path="/" render={homeComponent} ></Route>
             <Route exact path="/user/:id" render={userShowComponent}></Route>
-            <Route exact path="/list/:id" render={listShowComponent}></Route>
+            <Route exact path="/user/:userId/list/:id" render={listShowComponent}></Route>
           </Switch>
         </div>
       </Router>

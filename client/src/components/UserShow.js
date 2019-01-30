@@ -35,7 +35,7 @@ class UserShow extends Component {
     render() {
         let lists = this.state.user.lists.map((list, i) => {
             return (<div key={i}>
-                <Link to={`/list/${list._id}`}>{list.name}</Link>
+                <Link to={`/user/${this.props.match.params.id}/list/${list._id}`}>{list.name}</Link>
             </div>)
         })
         return (

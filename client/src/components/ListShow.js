@@ -92,7 +92,7 @@ class ListShow extends Component {
                 <button name="shopping" onClick={this.switchView}>Shopping</button>
                 <button name="packing" onClick={this.switchView}>Packing</button>
                 <h1>{this.state.list.name}</h1>
-                <Link to={`/user/${this.props.userId}`}><button>All Lists</button></Link>
+                <Link to={`/user/${this.props.match.params.userId}`}><button>All Lists</button></Link>
                 <AddItem addItem={this.addItem}></AddItem>
                 {currentView}
             </div >
