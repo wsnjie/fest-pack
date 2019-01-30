@@ -5,6 +5,10 @@ import UserShow from './components/UserShow';
 import ListShow from './components/ListShow';
 import axios from "axios"
 import { Hero, Container, Heading } from "react-bulma-components/full"
+import Login from './components/Login';
+import LoginSuccess from "./components/LoginSuccess"
+import Callback from "./components/Callback"
+import NavBar from './components/NavBar';
 
 
 class App extends Component {
@@ -62,6 +66,18 @@ class App extends Component {
         list={this.state.list}
 
       />
+
+    const loginComponent = () =>
+      <Login
+
+      />
+
+    const navComponent = (props) =>
+      <NavBar
+        {...props}
+
+      />
+
     return (
       <Router>
         <div>
@@ -72,10 +88,14 @@ class App extends Component {
               </Container>
             </Hero.Body>
           </Hero>
+          {navComponent}
           <Switch>
             <Route exact path="/" render={homeComponent} ></Route>
             <Route exact path="/user/:id" render={userShowComponent}></Route>
             <Route exact path="/user/:userId/list/:id" render={listShowComponent}></Route>
+            <Route exact path="/login" render={loginComponent}></Route>
+            <Route exact path="/login/success" component={LoginSuccess}></Route>
+            <Route exact path="/callback" component={Callback}></Route>
           </Switch>
         </div>
       </Router>

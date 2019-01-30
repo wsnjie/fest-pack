@@ -4,6 +4,7 @@ import AddUser from './AddUser';
 import { Tile, Heading, Section, Box } from "react-bulma-components/full"
 import styled from "styled-components"
 
+
 const UserBox = styled.div`
 display: flex;
 flex-direction:row;
@@ -29,6 +30,7 @@ class Home extends Component {
     }
 
     render() {
+
         const userList = this.props.users.map((user, i) => {
             return (<div key={i}>
                 <Box>

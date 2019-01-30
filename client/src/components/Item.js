@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import styled from "styled-components"
 import { Button } from "react-bulma-components/full"
 
-const BuyButton = styled.button`
-color: black;
-`
-const BoughtButton = styled.button`
-color: green;
-`
+
+
 const PackedItem = styled.span`
 text-decoration-line: line-through;
 `
