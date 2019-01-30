@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components"
+import { Button } from "react-bulma-components/full"
 
 const BuyButton = styled.button`
 color: black;
@@ -98,10 +99,10 @@ class Item extends Component {
 
     buyCheck = () => {
         if (this.state.bought === true) {
-            const boughtButton = <BoughtButton onClick={this.buyToggle}>Got It!</BoughtButton>
+            const boughtButton = <Button size="small" color="success" onClick={this.buyToggle}>Got It!</Button>
             this.setState({ boughtButton: boughtButton })
         } else {
-            const buyButton = <BuyButton onClick={this.buyToggle}>Get It?</BuyButton>
+            const buyButton = <Button size="small" color="info" onClick={this.buyToggle}>Get It?</Button>
             this.setState({ boughtButton: buyButton })
         }
     }

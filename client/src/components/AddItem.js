@@ -21,7 +21,7 @@ class AddItem extends Component {
     render() {
         return (
             <div>
-                <input placeholder="Qty?" onChange={this.numberChange}></input>
+                <input placeholder="Qty?" onChange={this.numberChange} defaultValue={1}></input>
                 <input placeholder="Item?" onChange={this.nameChange}></input>
 
                 <button onClick={() => this.props.addItem(this.state)}>Submit</button>
