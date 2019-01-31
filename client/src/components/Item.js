@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Button } from "react-bulma-components/full"
 
 
+
 const StyledInput = styled.input`
     width: 25px;
 `
@@ -33,6 +34,8 @@ const Bought = styled.button`
 background-color: green;
 color: white;
 `
+
+
 
 const PackedItem = styled.span`
 text-decoration-line: line-through;
