@@ -5,6 +5,12 @@ import UserShow from './components/UserShow';
 import ListShow from './components/ListShow';
 import axios from "axios"
 import { Hero, Container, Heading } from "react-bulma-components/full"
+import styled from "styled-components"
+
+const ItemList = styled.div`
+width: 60vw;
+margin: 0 auto;
+`
 
 
 class App extends Component {
@@ -56,12 +62,12 @@ class App extends Component {
       />
 
     const listShowComponent = (props) =>
-      <ListShow
+      <ItemList ><ListShow
         {...props}
         setList={this.setList}
         list={this.state.list}
 
-      />
+      /></ItemList>
     return (
       <Router>
         <div>

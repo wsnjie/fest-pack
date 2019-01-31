@@ -2,12 +2,38 @@ import React, { Component } from 'react';
 import styled from "styled-components"
 import { Button } from "react-bulma-components/full"
 
-const BuyButton = styled.button`
-color: black;
+
+const StyledInput = styled.input`
+    width: 25px;
 `
-const BoughtButton = styled.button`
-color: green;
+
+const ItemBox = styled.div`
+margin: 0 auto;
+width: 50vw;
+display: flex;
+justify-content: space-between;
+
 `
+
+const DeleteButton = styled.button`
+background-color: red;
+color: white;
+`
+
+const OnListButton = styled.button`
+background-color: green;
+color: white;
+`
+const NotBought = styled.button`
+background-color: orange;
+color: white;
+`
+
+const Bought = styled.button`
+background-color: green;
+color: white;
+`
+
 const PackedItem = styled.span`
 text-decoration-line: line-through;
 `
@@ -78,10 +104,11 @@ class Item extends Component {
 
     }
 
-    addToShopping = () => {
+    shoppingToggle = () => {
         let item = this.state.item
-        item.buy = true
+        item.buy = !item.buy
         this.setState({ item: item })
+        this.setView()
         this.props.editItem(this.state.item._id, this.state.item)
     }
 
@@ -99,10 +126,10 @@ class Item extends Component {
 
     buyCheck = () => {
         if (this.state.bought === true) {
-            const boughtButton = <Button size="small" color="success" onClick={this.buyToggle}>Got It!</Button>
+            const boughtButton = <Bought onClick={this.buyToggle}>Got It!</Bought>
             this.setState({ boughtButton: boughtButton })
         } else {
-            const buyButton = <Button size="small" color="info" onClick={this.buyToggle}>Get It?</Button>
+            const buyButton = <NotBought onClick={this.buyToggle}>Get It?</NotBought>
             this.setState({ boughtButton: buyButton })
         }
     }
@@ -129,15 +156,25 @@ class Item extends Component {
     }
     viewCheck = () => {
         if (this.props.view === "planning") {
-            const shoppingButton = <button onClick={this.addToShopping}>$</button>
-            this.setState({ shopButton: shoppingButton })
+            const needToBuy = <button onClick={this.shoppingToggle}>$</button>
+            const onShoppingList = <OnListButton onClick={this.shoppingToggle}>$</OnListButton>
+            const shopButtonView = () => {
+                const buyBool = this.state.item.buy
+                if (buyBool === true) {
+                    return onShoppingList
+                } else {
+                    return needToBuy
+                }
+            }
+
+            this.setState({ shopButton: shopButtonView() })
             this.setState({ boughtButton: null })
             let qtyView = () => {
                 if (this.state.editQty === true) {
 
-                    return <input onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.state.item.qty} autoFocus={true} />
+                    return <StyledInput onBlur={this.updateQty} name="qty" onChange={this.handleChange} defaultValue={this.state.item.qty} autoFocus={true} />
                 } else {
-                    return <span onClick={this.toggleEditQty}>{this.state.item.qty}</span>
+                    return <span onClick={this.toggleEditQty}>{this.state.item.qty}: </span>
                 }
 
             }
@@ -165,14 +202,14 @@ class Item extends Component {
     }
     render() {
         return (
-            <div>
-                <span><button onClick={() => this.props.deleteItem(this.props.item._id)}>X</button>
-                    <span>{this.state.qtyField}:  {this.state.nameField}</span>
+            <ItemBox>
+                <span><DeleteButton onClick={() => this.props.deleteItem(this.props.item._id)}>X</DeleteButton>
+                    <span>{this.state.qtyField}  {this.state.nameField}</span>
 
                 </span>
                 {this.state.shopButton}
                 {this.state.boughtButton}
-            </div>
+            </ItemBox>
         );
     }
 }
