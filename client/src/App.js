@@ -63,11 +63,11 @@ class App extends Component {
       />
 
     const listShowComponent = (props) =>
-      <ItemList ><ListShow
+      <ListShow
         {...props}
         setList={this.setList}
         list={this.state.list}
-
+      />
 
     return (
       <Router>
@@ -79,12 +79,12 @@ class App extends Component {
               </Container>
             </Hero.Body>
           </Hero>
-          {navComponent}
+
           <Switch>
             <Route exact path="/" render={homeComponent} ></Route>
             <Route exact path="/user/:id" render={userShowComponent}></Route>
             <Route exact path="/user/:userId/list/:id" render={listShowComponent}></Route>
-
+          </Switch>
         </div>
       </Router>
     );
