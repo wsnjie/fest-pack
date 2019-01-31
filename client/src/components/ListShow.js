@@ -5,6 +5,20 @@ import AddItem from './AddItem';
 import PlanningView from './PlanningView';
 import ShoppingView from './ShoppingView';
 import PackingView from './PackingView';
+import styled from "styled-components"
+
+const ItemList = styled.div`
+width: 60%vw;
+margin: 0 auto;
+`
+
+const ListHeader = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+`
+
 
 
 class ListShow extends Component {
@@ -37,8 +51,7 @@ class ListShow extends Component {
             console.log(update.items)
             update.items.push(res.data)
             this.setState({ list: update })
-            // axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
-
+            axios.put(`/api/lists/${this.state.list._id}`, update, { new: true })
         })
     }
 
@@ -86,16 +99,21 @@ class ListShow extends Component {
         }
 
         return (
-            <div>
+            <ItemList>
+                <ListHeader>
+                    <div>
+                        <button name="planning" onClick={this.switchView}>Planning</button>
+                        <button name="shopping" onClick={this.switchView}>Shopping</button>
+                        <button name="packing" onClick={this.switchView}>Packing</button>
+                    </div>
+                    <h1>{this.state.list.name}</h1>
+                    <Link to={`/user/${this.props.match.params.userId}`}><button>All Lists</button></Link>
+                    <AddItem addItem={this.addItem}></AddItem>
+                </ListHeader>
 
-                <button name="planning" onClick={this.switchView}>Planning</button>
-                <button name="shopping" onClick={this.switchView}>Shopping</button>
-                <button name="packing" onClick={this.switchView}>Packing</button>
-                <h1>{this.state.list.name}</h1>
-                <Link to={`/user/${this.props.match.params.userId}`}><button>All Lists</button></Link>
-                <AddItem addItem={this.addItem}></AddItem>
                 {currentView}
-            </div >
+
+            </ItemList>
         );
     }
 }
