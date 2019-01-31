@@ -19,6 +19,8 @@ justify-content: space-around;
 align-items: center;
 `
 
+
+
 class ListShow extends Component {
     state = {
         list: {
@@ -108,7 +110,9 @@ class ListShow extends Component {
                     <Link to={`/user/${this.props.match.params.userId}`}><button>All Lists</button></Link>
                     <AddItem addItem={this.addItem}></AddItem>
                 </ListHeader>
+
                 {currentView}
+
             </ItemList>
         );
     }

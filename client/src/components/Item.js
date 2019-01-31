@@ -196,19 +196,20 @@ class Item extends Component {
         } else if (this.props.view === "packing") {
             this.setState({ boughtButton: null })
             this.setState({ shopButton: null })
-            this.setState({ qtyField: <span>{this.state.item.qty}</span> })
+            this.setState({ qtyField: <span>{this.state.item.qty}:</span> })
             this.packedCheck()
         }
     }
     render() {
         return (
             <ItemBox>
-                <span><DeleteButton onClick={() => this.props.deleteItem(this.props.item._id)}>X</DeleteButton>
-                    <span>{this.state.qtyField}  {this.state.nameField}</span>
+                <div><DeleteButton onClick={() => this.props.deleteItem(this.props.item._id)}>X</DeleteButton></div>
+                <div>    {this.state.qtyField}  {this.state.nameField}</div>
 
-                </span>
-                {this.state.shopButton}
-                {this.state.boughtButton}
+                <div>
+                    {this.state.shopButton}
+                    {this.state.boughtButton}
+                </div>
             </ItemBox>
         );
     }

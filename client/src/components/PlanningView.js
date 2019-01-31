@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import Item from "../components/Item"
+import styled from "styled-components"
+
+const ListDisplay = styled.div`
+display: flex;
+flex-direction: column-reverse;
+`
 
 class PlanningView extends Component {
     render() {
@@ -17,7 +23,10 @@ class PlanningView extends Component {
         })
         return (
             <div>
-                {items}
+                <ListDisplay>
+                    {items}
+                </ListDisplay>
+
             </div>
         );
     }
