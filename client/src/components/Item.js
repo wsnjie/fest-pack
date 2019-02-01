@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components"
 import { Button } from "react-bulma-components/full"
-import posed from "react-pose"
-
-const PosedItem = posed.p({
-    enter: { x: 0, opacity: 1 },
-    exit: { x: 50, opacity: 0 }
-});
-
-
-
 
 
 const StyledInput = styled.input`
@@ -21,8 +12,10 @@ margin: 0 auto;
 width: 50vw;
 display: flex;
 justify-content: space-between;
+font-family: 'Typewriter';
 @media (max-width: 500px){
     width:100vw;
+    font-size: 30px;
 }
 
 `

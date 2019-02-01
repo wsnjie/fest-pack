@@ -20,6 +20,7 @@ height: 45px;
 h1 {
   font-size:50px;
   text-align:center;
+  font-family: Stamped;
 }
 margin-bottom: 50px;
 `

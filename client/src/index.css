@@ -1,3 +1,14 @@
+@font-face{ 
+    font-family: 'typewriter';
+    src: url('./fonts/veteran\ typewriter.ttf');
+}
+
+@font-face{ 
+    font-family: 'stamped';
+    src: url('./fonts/BadlyStamped.ttf');
+}
+
+
 body {
   margin: 0;
   padding: 0;
