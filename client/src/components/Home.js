@@ -44,6 +44,7 @@ class Home extends Component {
         return (
             <div >
                 <Section>
+                    <Link exact to="/login" ><button>Login</button></Link>
                     <AddUserRow><AddUserButton onClick={this.toggleForm}>Sign Up Here!</AddUserButton>{this.state.toggleAdd
                         ? <AddUser toggleForm={this.toggleForm} addUser={this.props.addUser}></AddUser>
                         : null}</AddUserRow>

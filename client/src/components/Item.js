@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import styled from "styled-components"
 import { Button } from "react-bulma-components/full"
+import posed from "react-pose"
+
+const PosedItem = posed.p({
+    enter: { x: 0, opacity: 1 },
+    exit: { x: 50, opacity: 0 }
+});
+
+
 
 
 
@@ -13,26 +21,34 @@ margin: 0 auto;
 width: 50vw;
 display: flex;
 justify-content: space-between;
+@media (max-width: 500px){
+    width:100vw;
+}
 
 `
 
 const DeleteButton = styled.button`
-background-color: red;
-color: white;
+background-color: #AD343E;
+color: #959B99;
+`
+const NotOnListButton = styled.button`
+background-color: #9CFFFA;
+color: #959B99;
 `
 
+
 const OnListButton = styled.button`
-background-color: green;
-color: white;
+background-color: #B3F4A5;
+color: #959B99;
 `
 const NotBought = styled.button`
-background-color: orange;
-color: white;
+background-color: #9CFFFA;
+color: #959B99;
 `
 
 const Bought = styled.button`
-background-color: green;
-color: white;
+background-color: #B3F4A5;
+color: #959B99;
 `
 
 
@@ -159,7 +175,7 @@ class Item extends Component {
     }
     viewCheck = () => {
         if (this.props.view === "planning") {
-            const needToBuy = <button onClick={this.shoppingToggle}>$</button>
+            const needToBuy = <NotOnListButton onClick={this.shoppingToggle}>$</NotOnListButton>
             const onShoppingList = <OnListButton onClick={this.shoppingToggle}>$</OnListButton>
             const shopButtonView = () => {
                 const buyBool = this.state.item.buy

@@ -4,13 +4,34 @@ import Home from './components/Home';
 import UserShow from './components/UserShow';
 import ListShow from './components/ListShow';
 import axios from "axios"
-import { Hero, Container, Heading } from "react-bulma-components/full"
+import posed, { PoseGroup } from "react-pose";
 
 import styled from "styled-components"
 
-const ItemList = styled.div`
-width: 60vw;
-margin: 0 auto;
+const RoutesContainer = posed.div({
+  enter: { opacity: 1, delay: 300, beforeChildren: true },
+  exit: { opacity: 0 }
+});
+
+
+const StyledHeader = styled.div`
+width:100vw;
+height: 45px;
+h1 {
+  font-size:50px;
+  text-align:center;
+}
+margin-bottom: 50px;
+`
+
+const StyledContainer = styled.div`
+/* display: flex;
+flex-direction: column;
+justify-content: space-between; */
+`
+const StyledBody = styled.div`
+width:100vw;
+height: auto;
 `
 
 
@@ -48,6 +69,11 @@ class App extends Component {
     this.setState({ list: listSet })
   }
 
+  getSingleUser = (name) => {
+
+  }
+
+
   render() {
     const homeComponent = () =>
       <Home
@@ -69,24 +95,28 @@ class App extends Component {
         list={this.state.list}
       />
 
-    return (
-      <Router>
-        <div>
-          <Hero color="info">
-            <Hero.Body>
-              <Container>
-                <Heading>Fest Pack</Heading>
-              </Container>
-            </Hero.Body>
-          </Hero>
 
-          <Switch>
-            <Route exact path="/" render={homeComponent} ></Route>
-            <Route exact path="/user/:id" render={userShowComponent}></Route>
-            <Route exact path="/user/:userId/list/:id" render={listShowComponent}></Route>
-          </Switch>
-        </div>
-      </Router>
+
+    return (
+      <Route render={({ location }) => (
+        <StyledContainer>
+          <StyledHeader >
+            <h1 >Fest Pack</h1>
+          </StyledHeader>
+          <StyledBody>
+            <PoseGroup>
+              <RoutesContainer key={location.pathname}>
+                <Switch location={location}>
+                  <Route exact path="/" render={homeComponent} key="home" ></Route>
+                  <Route exact path="/user/:id" render={userShowComponent} key="user"></Route>
+                  <Route exact path="/user/:userId/list/:id" render={listShowComponent} key="list"></Route>
+                </Switch>
+              </RoutesContainer>
+            </PoseGroup>
+          </StyledBody>
+        </StyledContainer>
+      )} />
+
     );
   }
 }
