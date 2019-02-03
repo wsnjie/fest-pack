@@ -33,11 +33,13 @@ class PlanningView extends Component {
         })
         return (
             <div>
-                <ListDisplay>
-                    <PosedContainer>
+
+                <PosedContainer>
+                    <ListDisplay>
                         {items}
-                    </PosedContainer>
-                </ListDisplay>
+                    </ListDisplay>
+                </PosedContainer>
+
 
             </div>
         );

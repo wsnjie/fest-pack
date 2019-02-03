@@ -4,7 +4,13 @@ import styled from 'styled-components'
 const StyledInput = styled.input`
     display: inline-block;
 `
-
+const StyledDiv = styled.div`
+display: flex;
+flex-direction: column;
+`
+const StyledFormRow = styled.div`
+display: flex;
+`
 
 class AddItem extends Component {
     state = {
@@ -22,9 +28,11 @@ class AddItem extends Component {
         this.setState({ qty: e.target.value })
     }
 
-    submit = (e) => {
+    submit = async (e) => {
         e.preventDefault()
-        this.props.addItem(this.state)
+        await this.props.addItem(this.state)
+        this.setState({ name: "" })
+        this.setState({ qty: 1 })
     }
 
 
@@ -33,11 +41,18 @@ class AddItem extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.submit}>
-                    <StyledInput placeholder="Qty?" onChange={this.numberChange} defaultValue={1} />
-                    <StyledInput placeholder="Item?" onChange={this.nameChange} />
-
-                    <button type="submit">Submit</button>
+                <form onSubmit={(e) => this.submit(e)}>
+                    <StyledFormRow>
+                        <StyledDiv>
+                            <div>Quantity</div>
+                            <StyledInput placeholder="Qty?" onChange={this.numberChange} value={this.state.qty} />
+                        </StyledDiv>
+                        <StyledDiv>
+                            <div>Item Name</div>
+                            <StyledInput placeholder="Item?" onChange={this.nameChange} value={this.state.name} />
+                        </StyledDiv>
+                        <button type="submit">Submit</button>
+                    </StyledFormRow>
                 </form>
             </div>
         );
